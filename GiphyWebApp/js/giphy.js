@@ -1,22 +1,12 @@
 ﻿var PageOffset = 0;
+var responseArray = [];
 
 $(window).on("load", function () {
     //console.log("window loaded");
-    InfiniteScroll();
-   // offset += 10;
-
-    
+    InfiniteScroll();  
 });
 
-//$(window).scroll(function () {
-//    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-//        // alert("near bottom!");
-//        console.log(PageOffset);
-//        //InfiniteScroll(PageOffset);
-//        alert('hi');
-//        PageOffset = PageOffset + 10;
-//    }
-//});
+
 
 $(document).ready(function () {
     $(window).on('scroll', function () {
@@ -30,14 +20,8 @@ $(document).ready(function () {
 })
 
 
-//$(window).on('scroll', function () {
-//    if ($(window).scrollTop() > $(document).height() - $(window).height()) {
-//        alert('hi');
-//    }
-//}).scroll();
-
 function InfiniteScroll() {
-   
+
     $("#ImageText").text("Trending Gifs");
     $.ajax({
         type: "GET",
@@ -45,19 +29,20 @@ function InfiniteScroll() {
         dataType: "json",
         success: function (Imagedata) {
             PageOffset = PageOffset + 10;
-            for (var i = 0; i < Imagedata.data.length; i++) {
-                //const limit = 10;
-                //var offset = 0;
-                // console.log(Imagedata);
-                // console.log(Imagedata.data[i].images.original.url);
-                //$('#GifImage').attr("src",Imagedata.data[0].images.original.url);
-                $("#dImg").append("<img src=\"" + Imagedata.data[i].images.original.url + "\"/>")
-                
+            var offsetValue = Imagedata.pagination.offset;
+            if (!responseArray.includes(offsetValue)) {
+                for (var i = 0; i < Imagedata.data.length; i++) {
+                    $("#dImg").append("<img src=\"" + Imagedata.data[i].images.original.url + "\"/>")
+                    responseArray.push(offsetValue);
+                }
             }
+           // console.log(Imagedata);
+
         }
     });
     //$("#dImg").empty();
 };
+
 
 function SearchInfiniteScroll() {
     var SearchValue = $("#SearchInput").val();
@@ -67,11 +52,14 @@ function SearchInfiniteScroll() {
         dataType: "json",
         success: function (Imagedata) {
             PageOffset = PageOffset + 10;
-            for (var i = 0; i < Imagedata.data.length; i++) {
-                // console.log(Imagedata);
-                // console.log(Imagedata.data[i].images.original.url);
-                //$('#GifImage').attr("src",Imagedata.data[0].images.original.url);
-                $("#dImg").append("<img src=\"" + Imagedata.data[i].images.original.url + "\"/>")
+            var offsetValue = Imagedata.pagination.offset;
+            if (!responseArray.includes(offsetValue)) {
+                for (var i = 0; i < Imagedata.data.length; i++) {
+                    // console.log(Imagedata);
+                    // console.log(Imagedata.data[i].images.original.url);
+                    $("#dImg").append("<img src=\"" + Imagedata.data[i].images.original.url + "\"/>")
+                    responseArray.push(offsetValue);
+                }
             }
         }
     });
@@ -81,6 +69,7 @@ function SearchInfiniteScroll() {
 
 
 function GiphyLoad() {
+    responseArray=[];
     var SearchValue = $("#SearchInput").val();
     if (SearchValue == "") {
         InfiniteScroll();
@@ -89,7 +78,6 @@ function GiphyLoad() {
     else {
         $("#ImageText").text("Search Result for" + " " + SearchValue);
         SearchInfiniteScroll();
-    }
-        
+    }       
     //  console.log(SearchValue);
 };
