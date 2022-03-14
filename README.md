@@ -5,7 +5,7 @@
 	<li>When user dont give any input and searches then trending Gif's are shown</li><br/>
 	<div><b>How to run the application</b> <br/>-Download the project from Github and run the index.html file then the project will open in browser.</div><br/>
 <div><b>Google Drive Link -</b> https://drive.google.com/file/d/14ZlQBhQdGjBFbR_40WDUOr1CZE261wgv/view?usp=sharing.</div>
-<div><b>Netlify Url -</b> https://wonderful-yonath-43351c.netlify.app</div>
+<div><b>Netlify Url -</b> https://practical-mirzakhani-17fab0.netlify.app</div>
 	
 	
 
