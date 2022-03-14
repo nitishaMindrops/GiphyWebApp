@@ -3,7 +3,7 @@ var responseArray = [];
 
 $(window).on("load", function () {
     //console.log("window loaded");
-    InfiniteScroll();  
+    TrendingScroll();
 });
 
 
@@ -13,14 +13,22 @@ $(document).ready(function () {
         if ($(window).scrollTop() >= $(
             '.div').offset().top + $('.div').
                 outerHeight() - window.innerHeight) {
+            //$("#dImg").append(SearchInfiniteScroll());
+           // responseArray.push(offsetValue);
+            //SearchInfiniteScroll();
 
-            InfiniteScroll();
+            if ($("#SearchInput").val() == "") {
+                TrendingScroll();
+            }
+            else {
+                InputSearchScroll();
+            }
         }
     })
 })
 
 
-function InfiniteScroll() {
+function TrendingScroll() {
 
     $("#ImageText").text("Trending Gifs");
     $.ajax({
@@ -44,7 +52,7 @@ function InfiniteScroll() {
 };
 
 
-function SearchInfiniteScroll() {
+function InputSearchScroll() {
     var SearchValue = $("#SearchInput").val();
     $.ajax({
         type: "GET",
@@ -54,30 +62,34 @@ function SearchInfiniteScroll() {
             PageOffset = PageOffset + 10;
             var offsetValue = Imagedata.pagination.offset;
             if (!responseArray.includes(offsetValue)) {
-                for (var i = 0; i < Imagedata.data.length; i++) {
+                for (var i = 0; i < Imagedata.data.length; i++)
+                {
                     // console.log(Imagedata);
                     // console.log(Imagedata.data[i].images.original.url);
                     $("#dImg").append("<img src=\"" + Imagedata.data[i].images.original.url + "\"/>")
-                    responseArray.push(offsetValue);
+                    
                 }
+                responseArray.push(offsetValue);
             }
         }
     });
-    $("#dImg").empty();
+    
+    //responseArray = [];
 };
 
 
 
 function GiphyLoad() {
-    responseArray=[];
+    responseArray = [];
+    $("#dImg").empty();
     var SearchValue = $("#SearchInput").val();
     if (SearchValue == "") {
-        InfiniteScroll();
+        TrendingScroll();
     }
 
     else {
         $("#ImageText").text("Search Result for" + " " + SearchValue);
-        SearchInfiniteScroll();
+        InputSearchScroll();
     }       
     //  console.log(SearchValue);
 };
