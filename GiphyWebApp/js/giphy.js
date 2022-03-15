@@ -1,5 +1,6 @@
 ﻿var PageOffset = 0;
 var responseArray = [];
+var ajaxRequest = null;
 
 $(window).on("load", function () {
     //console.log("window loaded");
@@ -16,7 +17,7 @@ $(document).ready(function () {
             //$("#dImg").append(SearchInfiniteScroll());
            // responseArray.push(offsetValue);
             //SearchInfiniteScroll();
-
+            PageOffset = PageOffset + 10;
             if ($("#SearchInput").val() == "") {
                 TrendingScroll();
             }
@@ -53,18 +54,23 @@ function TrendingScroll() {
 
 
 function InputSearchScroll() {
+
+    if (ajaxRequest != null) {
+        ajaxRequest.abort();
+    }
     var SearchValue = $("#SearchInput").val();
-    $.ajax({
+    ajaxRequest =  $.ajax({
         type: "GET",
         url: "https://api.giphy.com/v1/gifs/search?api_key=izV5X2YE3sY71qcdptseUwhja3ZFdKzv&q=" + SearchValue + "&limit=10" + "&offset=" + PageOffset,
         dataType: "json",
         success: function (Imagedata) {
-            PageOffset = PageOffset + 10;
+            
             var offsetValue = Imagedata.pagination.offset;
             if (!responseArray.includes(offsetValue)) {
+                console.log(Imagedata);
                 for (var i = 0; i < Imagedata.data.length; i++)
                 {
-                    // console.log(Imagedata);
+                    //console.log(Imagedata);
                     // console.log(Imagedata.data[i].images.original.url);
                     $("#dImg").append("<img src=\"" + Imagedata.data[i].images.original.url + "\"/>")
                     
@@ -80,7 +86,9 @@ function InputSearchScroll() {
 
 
 function GiphyLoad() {
+    console.log(PageOffset);
     responseArray = [];
+    PageOffset = 0;
     $("#dImg").empty();
     var SearchValue = $("#SearchInput").val();
     if (SearchValue == "") {
