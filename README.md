@@ -4,8 +4,8 @@
 	<li> When user type any word to search in the search tab then related Gif's are displayed on the screen and more Gif's will be loaded as we scroll down</li>
 	<li>When user dont give any input and searches then trending Gif's are shown</li><br/>
 	<div><b>How to run the application</b> <br/>-Download the project from Github and run the index.html file then the project will open in browser.</div><br/>
-<div><b>Google Drive Link -</b> https://drive.google.com/file/d/1dl2i8EvPjQhkvwce2v1ts3-ws--aODHq/view?usp=sharing</div>
-<div><b>Netlify Url -</b> https://thirsty-borg-cca72c.netlify.app</div>
+<div><b>Google Drive Link -</b> https://drive.google.com/file/d/1kLT46IF2vtiizqzU5caSSG36EEZr6eBR/view?usp=sharing</div>
+<div><b>Netlify Url -</b> https://romantic-gates-417c43.netlify.app</div>
 	
 	
 
